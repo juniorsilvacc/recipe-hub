@@ -40,9 +40,16 @@
     {% block styles_css %} {% endblock %}
   </head>
   <body>
-    
-    <div>
-      <main>{% block content %} {% endblock %}</main>
+    <!-- Banner -->
+    {% include 'components/_banner.html' %}
+
+    <div class="container">
+      <!-- Barra de busca -->
+      {% include 'components/_search.html' %}
+
+      <main>
+        {% block content %} {% endblock %}
+      </main>
     </div>
 
     <!-- JS Boostrap -->

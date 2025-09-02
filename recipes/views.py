@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import render
+from datetime import datetime
 
-def home(request):
-    receitas = [
+
+receitas = [
         {
             "id": 1,
             "title": "Bolo de Cenoura",
@@ -42,7 +43,7 @@ def home(request):
                 "Montar em camadas de molho, massa e queijo.",
                 "Assar no forno a 200°C por 30 minutos."
             ],
-            "created_at": "2025-09-01T11:00:00",
+            "created_at": datetime.fromisoformat("2025-09-01T10:30:00"),
             "author": {
                 "first_name": "João",
                 "last_name": "Pereira"
@@ -66,7 +67,7 @@ def home(request):
                 "Montar em camadas de molho, massa e queijo.",
                 "Assar no forno a 200°C por 30 minutos."
             ],
-            "created_at": "2025-09-01T11:00:00",
+            "created_at": datetime.fromisoformat("2025-09-01T10:30:00"),
             "author": {
                 "first_name": "João",
                 "last_name": "Pereira"
@@ -78,8 +79,12 @@ def home(request):
         }
     ]
 
+def home(request):
     return render(request, 'home.html', {'receitas': receitas})
 
 
 def recipe(request, id):
-    return HttpResponse(f'Receita de ID {id}')
+    receita = next((r for r in receitas if r["id"] == id), None)
+    if not receita:
+        raise Http404("Receita não encontrada")
+    return render(request, 'detail_recipe.html', {'receita': receita})
