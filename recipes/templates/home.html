@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+    Receitas 
+{% endblock %} 
+
+{% block content %}
+<!-- Banner -->
+{% include 'components/_banner.html' %}
+
+<div class="container">
+  <!-- Barra de busca -->
+  {% include 'components/_search.html' %}
+
+  <!-- Lista de receitas -->
+  <div class="row">
+    {% for receita in receitas %} 
+        {% include 'components/_recipes.html' %} 
+    {% empty %}
+        <p class="text-center">Nenhuma receita encontrada.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
