@@ -23,7 +23,14 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True) # Quando deletar set esse campo como nulo
+    category = models.ForeignKey(
+        Category, 
+        on_delete=models.SET_NULL, 
+        null=True,                  # Permite NULL no banco
+        blank=True,                 # Permite campo vazio em formulários
+        default=None,               # Padrão será None
+        related_name='recipes',     # Acesso reverso: category.recipes.all()
+    )
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
