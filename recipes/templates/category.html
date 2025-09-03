@@ -1,19 +1,16 @@
 {% extends 'base.html' %} 
 
 {% block title %} 
-    Receitas 
+  Categoria 
 {% endblock %} 
 
 {% block content %}
-<!-- Barra de busca -->
-{% include 'components/_search.html' %}
-
 <!-- Lista de receitas -->
 <div class="row">
   {% for recipe in recipes %} 
-      {% include 'components/_recipes.html' %} 
+    {% include 'components/_recipes.html' %} 
   {% empty %}
-      <p class="text-center">Nenhuma receita encontrada.</p>
+    <p class="text-center">Nenhuma receita encontrada.</p>
   {% endfor %}
 </div>
 {% endblock %}

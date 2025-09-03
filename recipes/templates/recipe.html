@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block title %} Receita {% endblock %} 
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-3">
+        <!-- Imagem -->
+        <div style="background-color: #f8f9fa; height: 300px; display: flex; align-items: center; justify-content: center;">
+          {% if recipe.cover %}
+            <img src="{{ recipe.cover.url }}" class="img-fluid" style="max-height: 100%; object-fit: contain;" alt="{{ recipe.title }}">
+          {% endif %}
+        </div>
+
+        <div class="card-body">
+          <h1 class="card-title text-center mb-3">{{ recipe.title }}</h1>
+          <p class="card-text text-muted text-center">{{ recipe.description }}</p>
+          <hr>
+
+          <!-- Informações -->
+          <div class="d-flex justify-content-around my-3">
+            <p><i class="bi bi-clock"></i> <strong>Tempo de preparo:</strong> {{ recipe.preparation_time }} {{ recipe.preparation_time_unit }}</p>
+            <p><i class="bi bi-people"></i> <strong>Serve:</strong> {{ recipe.servings }} {{ recipe.servings_unit }}</p>
+          </div>
+
+          <!-- Modo de preparo -->
+          <h3 class="mt-4">Modo de preparo</h3>
+          {% if recipe.preparation_steps_is_html %}
+            <div class="mb-4">
+              {{ recipe.preparation_steps|safe }}
+            </div>
+          {% else %}
+            <ol class="list-group list-group-numbered mb-4">
+              {% for passo in recipe.preparation_steps.splitlines %}
+                {% if passo.strip %}
+                  <li class="list-group-item">{{ passo }}</li>
+                {% endif %}
+              {% endfor %}
+            </ol>
+          {% endif %}
+
+          <!-- Autor e Categoria -->
+          <div class="d-flex justify-content-between">
+            <p class="mb-0"><strong>Autor:</strong>
+            {% if recipe.author.first_name %}
+              {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+            {% else %}
+              {{ recipe.author.username }}
+            {% endif%}
+            </p>
+            <p class="mb-0"><strong>Categoria:</strong> {{ recipe.category.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
