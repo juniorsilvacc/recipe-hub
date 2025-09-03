@@ -50,7 +50,9 @@
               {{ recipe.author.username }}
             {% endif%}
             </p>
-            <p class="mb-0"><strong>Categoria:</strong> {{ recipe.category.name }}</p>
+            {% if recipe.category is not None %}
+              <p class="mb-0"><strong>Categoria:</strong> {{ recipe.category.name }}</p>
+            {% endif %}
           </div>
         </div>
       </div>

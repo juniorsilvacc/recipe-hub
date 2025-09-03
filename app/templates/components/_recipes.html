@@ -34,15 +34,17 @@
           {% endif %}
         </dd>
 
-        <dt class="col-sm-4">📂 Categoria</dt>
-        <dd class="col-sm-8">
-          <a
-            href="{% url 'category' recipe.category.id %}"
-            class="text-decoration-none"
-          >
-            {{ recipe.category.name }}
-          </a>
-        </dd>
+        {% if recipe.category is not None %}
+          <dt class="col-sm-4">📂 Categoria</dt>
+          <dd class="col-sm-8">
+            <a
+              href="{% url 'category' recipe.category.id %}"
+              class="text-decoration-none"
+            >
+              {{ recipe.category.name }}
+            </a>
+          </dd>
+        {% endif %}
       </dl>
 
       <a
